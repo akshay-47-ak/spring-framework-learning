@@ -1,3 +1,4 @@
+import looseCoupling.CarService;
 import myPack.userService;
 import org.springframework.context.ApplicationContext;
 
@@ -9,9 +10,10 @@ public class MainApp {
 
         ApplicationContext context = new ClassPathXmlApplicationContext("config.xml");
 
-        userService us = (userService) context.getBean("myBean");
+      CarService cs = (CarService) context.getBean("carService");
 
-          us.sayHello();
+      cs.StartCar();
+
     }
 }
 
