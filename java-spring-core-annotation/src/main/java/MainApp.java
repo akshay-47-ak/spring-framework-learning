@@ -11,7 +11,7 @@ public class MainApp {
 
       ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
-       CarService cs  = (CarService) context.getBean("carService");
+       CarService cs  = (CarService) context.getBean(CarService.class);
 
        cs.startEngine();
 

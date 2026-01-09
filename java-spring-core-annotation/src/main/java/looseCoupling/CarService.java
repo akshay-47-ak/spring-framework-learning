@@ -1,6 +1,7 @@
 package looseCoupling;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component("carService")
@@ -14,9 +15,16 @@ public class CarService {
     EngineService engineService;
     public CarService() {
     }
+  /*
+   @Qualifier Annotation Indicates the Bean That should be called if the multiple beans are there
+   Example :___________:
+     public CarService(@Qualifier("petrolEngine") EngineService engineService) {
+        this.engineService = engineService;
+    }
 
+   */
     @Autowired
-    public CarService(EngineService engineService) {
+    public CarService( EngineService engineService) {
         this.engineService = engineService;
     }
 
