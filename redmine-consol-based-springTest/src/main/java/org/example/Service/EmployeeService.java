@@ -12,7 +12,7 @@ public class EmployeeService {
     Repo repo;
 
     public void save(Employee employee){
-       repo.save(employee.getEmpId(),employee);
+       repo.save(employee);
     }
 
 }
