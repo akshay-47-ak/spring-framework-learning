@@ -32,8 +32,20 @@ public class Employee {
         return empDept;
     }
 
+
     public void setEmpDept(String empDept) {
         this.empDept = empDept;
     }
+
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "empId=" + empId +
+                ", empName='" + empName + '\'' +
+                ", empDept='" + empDept + '\'' +
+                '}';
+    }
+
 
 }

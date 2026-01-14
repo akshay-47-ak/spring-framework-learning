@@ -5,6 +5,8 @@ import org.example.Repository.Repo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public class EmployeeService {
 
@@ -13,6 +15,11 @@ public class EmployeeService {
 
     public void save(Employee employee){
        repo.save(employee);
+
+    }
+
+    public Map<Integer,Employee> listEmp(){
+        return repo.listEmp();
     }
 
 }

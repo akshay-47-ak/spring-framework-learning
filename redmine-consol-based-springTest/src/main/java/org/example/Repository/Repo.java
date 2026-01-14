@@ -13,7 +13,13 @@ public class Repo {
 
   public void save(Employee employee){
       employeeDb.put(employee.getEmpId(),employee);
-      System.out.println("Employee saved: " + employee.getEmpName());
+      System.out.println("Employee Saved With EmpID: " + employee.getEmpId());
   }
+
+  public Map<Integer,Employee> listEmp(){
+      return employeeDb;
+  }
+
+
 
 }
