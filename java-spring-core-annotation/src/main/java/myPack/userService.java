@@ -2,7 +2,7 @@ package myPack;
 
 import org.springframework.stereotype.Component;
 
-@Component("myBean")
+@Component
 public class userService {
 
     public void sayHello(){

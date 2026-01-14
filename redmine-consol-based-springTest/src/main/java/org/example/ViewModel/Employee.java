@@ -1,4 +1,4 @@
-package org.example.DB;
+package org.example.ViewModel;
 
 public class Employee {
 

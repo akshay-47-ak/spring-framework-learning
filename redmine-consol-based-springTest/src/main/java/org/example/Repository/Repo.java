@@ -1,8 +1,6 @@
 package org.example.Repository;
 
-import org.example.DB.Employee;
-import org.example.DB.Task;
-import org.springframework.stereotype.Component;
+import org.example.ViewModel.Employee;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;

@@ -1,6 +1,6 @@
 package org.example.Service;
 
-import org.example.DB.Employee;
+import org.example.ViewModel.Employee;
 import org.example.Repository.Repo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

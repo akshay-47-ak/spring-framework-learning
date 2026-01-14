@@ -15,7 +15,7 @@ public class AppConfig {
     To Avoid changes Direct in Class we use Bean Annotation On the Class Object As Give Below
      */
 
-    @Bean(initMethod = "init ",destroyMethod = "cleanup")
+    @Bean(initMethod = "init",destroyMethod = "cleanup")
     public BeanLifeCycle beanLifeCycle(EngineService engineService){
         return  new BeanLifeCycle(engineService);
     }
