@@ -4,6 +4,8 @@
  <p>DAY2 - Learned About the Bean initialization And Dependency Injection</p><br>
  <p>DAY3 - Learned About The Autowire Annotation and Component Annotation For DI</p><br>
  <p>DAY4 - Learned About The Component and Bean Annotation and Its Difference </p><br>
- <p>DAY- 5, 6,7 - Cricket, Office Work  </p>
+ <p>DAY- 5, 6,7 - Cricket, Office Work  </p><br>
+ <p>DAY- 8 - Spring Stereotype Annotation Leanrning</p>
+
  
  
