@@ -11,4 +11,10 @@ public class HelloController {
         return "Hello World";
     }
 
+    @GetMapping("/getUsers")
+    public User getUsers(){
+        return new User(1,"Akshay","PADM");
+    }
+
+
 }
