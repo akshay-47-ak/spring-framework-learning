@@ -1,5 +1,7 @@
 package com.example.demo.app;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.SecureRandom;
@@ -14,11 +16,12 @@ public class UserController {
     Map<Integer,User> userDb = new HashMap<>();
 
     @PostMapping
-    public String addUser(@RequestBody User user){
+    public ResponseEntity<User> addUser(@RequestBody User user){
 
         System.out.println(user.getProject());
         userDb.putIfAbsent(user.getId(),user);
-        return "User Created";
+        // return ResponseEntity.status(HttpStatus.CREATED).body(user);
+        return new ResponseEntity<>(user , HttpStatus.CREATED);
     }
 
     @PutMapping
