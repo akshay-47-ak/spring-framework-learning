@@ -3,7 +3,9 @@ package com.example.demo.app;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,6 +26,18 @@ public class UserController {
         if(userDb.containsKey(user.getId()))
             userDb.put(user.getId(),user);
         return "User Updated";
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteUser(@PathVariable int id){
+        userDb.remove(id);
+        return  "User Deleted";
+    }
+
+    @GetMapping
+    public List<User> getUsers(){
+
+        return new ArrayList<>(userDb.values());
     }
 
 }
