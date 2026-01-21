@@ -31,7 +31,7 @@ public class UserController {
             //return ResponseEntity.status(HttpStatus.NOT_FOUND).body();
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         userDb.put(user.getId(),user);
-        return new ResponseEntity<>(user,HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(user,HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -40,14 +40,14 @@ public class UserController {
             return new ResponseEntity<>("User Not Found : "+id,HttpStatus.NOT_FOUND);
 
         userDb.remove(id);
-        return  new ResponseEntity<>("User Deleted :"+id,HttpStatus.ACCEPTED);
+        return  new ResponseEntity<>("User Deleted :"+id,HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<List<User>> getUsers(){
         if(userDb.isEmpty())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(new ArrayList<>(userDb.values()),HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new ArrayList<>(userDb.values()),HttpStatus.OK);
     }
 
 }
