@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.SecureRandom;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,22 +25,29 @@ public class UserController {
     }
 
     @PutMapping
-    public String updateUser(@RequestBody User user){
-        if(userDb.containsKey(user.getId()))
-            userDb.put(user.getId(),user);
-        return "User Updated";
+    public ResponseEntity<User> updateUser(@RequestBody User user){
+        if(!userDb.containsKey(user.getId()))
+            //return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            //return ResponseEntity.status(HttpStatus.NOT_FOUND).body();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        userDb.put(user.getId(),user);
+        return new ResponseEntity<>(user,HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable int id){
+    public ResponseEntity<String> deleteUser(@PathVariable int id){
+        if(!userDb.containsKey(id))
+            return new ResponseEntity<>("User Not Found : "+id,HttpStatus.NOT_FOUND);
+
         userDb.remove(id);
-        return  "User Deleted";
+        return  new ResponseEntity<>("User Deleted :"+id,HttpStatus.ACCEPTED);
     }
 
     @GetMapping
-    public List<User> getUsers(){
-
-        return new ArrayList<>(userDb.values());
+    public ResponseEntity<List<User>> getUsers(){
+        if(userDb.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new ArrayList<>(userDb.values()),HttpStatus.ACCEPTED);
     }
 
 }
