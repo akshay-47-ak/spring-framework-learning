@@ -50,4 +50,11 @@ public class UserController {
         return new ResponseEntity<>(new ArrayList<>(userDb.values()),HttpStatus.OK);
     }
 
+    @GetMapping("/{userid}")
+    public ResponseEntity<User> getSingleUser(@PathVariable("userid") int id){
+        if(!userDb.containsKey(id))
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(userDb.get(id),HttpStatus.OK);
+    }
+
 }
