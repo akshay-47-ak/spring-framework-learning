@@ -57,4 +57,15 @@ public class UserController {
         return new ResponseEntity<>(userDb.get(id),HttpStatus.OK);
     }
 
+  @GetMapping("/search")
+  public ResponseEntity<List<User>> searchUser(@RequestParam String name){
+      System.out.println(name);
+      List<User> user = userDb.values().stream()
+                      .filter(u -> u.getName().equalsIgnoreCase(name))
+                       .toList();
+
+      return ResponseEntity.ok(user);
+  }
+
+
 }
