@@ -13,41 +13,44 @@ import java.util.Map;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    Map<Integer,User> userDb = new HashMap<>();
+
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping
     public ResponseEntity<User> addUser(@RequestBody User user){
 
-        System.out.println(user.getProject());
-        userDb.putIfAbsent(user.getId(),user);
-        // return ResponseEntity.status(HttpStatus.CREATED).body(user);
+      User cretedUser =   userService.creteUser(user);
+
         return new ResponseEntity<>(user , HttpStatus.CREATED);
     }
 
     @PutMapping
     public ResponseEntity<User> updateUser(@RequestBody User user){
-        if(!userDb.containsKey(user.getId()))
-            //return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            //return ResponseEntity.status(HttpStatus.NOT_FOUND).body();
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        userDb.put(user.getId(),user);
+        User updatedUser = userService.updateUser(user);
+        if(updatedUser == null)
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return new ResponseEntity<>(user,HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable int id){
-        if(!userDb.containsKey(id))
+        boolean isDeleted = userService.deleteUser(id);
+        if(!isDeleted)
             return new ResponseEntity<>("User Not Found : "+id,HttpStatus.NOT_FOUND);
-
-        userDb.remove(id);
         return  new ResponseEntity<>("User Deleted :"+id,HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<List<User>> getUsers(){
-        if(userDb.isEmpty())
+
+        List<User> userList = userService.getUsers();
+        if(userList == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(new ArrayList<>(userDb.values()),HttpStatus.OK);
+        return new ResponseEntity<>(userList,HttpStatus.OK);
     }
 
     @GetMapping("/{userid}")
