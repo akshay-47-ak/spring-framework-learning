@@ -42,4 +42,19 @@ public class UserService {
 
         return new ArrayList<>(userDb.values());
     }
+
+    public User getSingleUser(int id) {
+        if(!userDb.containsKey(id))
+            return null;
+        return userDb.get(id);
+
+
+    }
+
+    public List<User> searchUser(String name) {
+        List<User> user = userDb.values().stream()
+                .filter(u -> u.getName().equalsIgnoreCase(name))
+                .toList();
+        return user;
+    }
 }

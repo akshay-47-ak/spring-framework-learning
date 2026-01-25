@@ -55,17 +55,17 @@ public class UserController {
 
     @GetMapping("/{userid}")
     public ResponseEntity<User> getSingleUser(@PathVariable("userid") int id){
-        if(!userDb.containsKey(id))
+        User singleUser = userService.getSingleUser(id);
+        if(singleUser == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(userDb.get(id),HttpStatus.OK);
+        return new ResponseEntity<>(singleUser,HttpStatus.OK);
     }
 
   @GetMapping("/search")
   public ResponseEntity<List<User>> searchUser(@RequestParam String name){
       System.out.println(name);
-      List<User> user = userDb.values().stream()
-                      .filter(u -> u.getName().equalsIgnoreCase(name))
-                       .toList();
+
+      List<User> user = userService.searchUser(name);
 
       return ResponseEntity.ok(user);
   }
