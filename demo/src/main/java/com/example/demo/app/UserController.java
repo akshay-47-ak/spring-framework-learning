@@ -5,7 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -31,7 +34,7 @@ public class UserController {
         User updatedUser = userService.updateUser(user);
          if(updatedUser == null)
            //return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            throw new IllegalArgumentException("User Does not Found With : "+user.getId());
+            throw new IllegalArgumentException("User Does not Found With User ID : "+user.getId());
          return new ResponseEntity<>(user,HttpStatus.OK);
     }
 
@@ -39,7 +42,7 @@ public class UserController {
     public ResponseEntity<String> deleteUser(@PathVariable int id){
         boolean isDeleted = userService.deleteUser(id);
         if(!isDeleted)
-            return new ResponseEntity<>("User Not Found : "+id,HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("User Not Found With User ID: "+id,HttpStatus.NOT_FOUND);
         return  new ResponseEntity<>("User Deleted :"+id,HttpStatus.OK);
     }
 
@@ -69,5 +72,17 @@ public class UserController {
       return ResponseEntity.ok(user);
   }
 
+  @ExceptionHandler(IllegalArgumentException.class)
+  public ResponseEntity<Map<String,Object>> IllegalArgumentException(
+          IllegalArgumentException exception
+  ){
+        Map<String,Object> errorResponse  = new HashMap<>();
+
+        errorResponse.put("timeStamp", LocalDateTime.now());
+        errorResponse.put("status",HttpStatus.BAD_REQUEST);
+        errorResponse.put("error","Bad Request");
+        errorResponse.put("message",exception.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+  }
 
 }
