@@ -14,7 +14,7 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
 
-    @ExceptionHandler({IllegalArgumentException.class,NullPointerException.class})
+    @ExceptionHandler({UserNotFoundException.class,IllegalArgumentException.class,NullPointerException.class})
     public ResponseEntity<Map<String,Object>> IllegalArgumentException(
             Exception exception
     ){

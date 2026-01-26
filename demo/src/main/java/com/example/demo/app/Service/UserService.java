@@ -1,5 +1,6 @@
 package com.example.demo.app.Service;
 
+import com.example.demo.app.Exception.UserNotFoundException;
 import com.example.demo.app.model.User;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class UserService {
 
     public boolean deleteUser(int id) {
         if(!userDb.containsKey(id))
-            return false;
+            throw new UserNotFoundException("User Not Found for This ID :" +id);
         userDb.remove(id);
         return true;
     }
