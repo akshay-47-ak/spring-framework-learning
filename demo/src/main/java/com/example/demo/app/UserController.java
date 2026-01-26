@@ -5,10 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
 @RequestMapping("/users")
@@ -31,9 +29,10 @@ public class UserController {
     @PutMapping
     public ResponseEntity<User> updateUser(@RequestBody User user){
         User updatedUser = userService.updateUser(user);
-        if(updatedUser == null)
-           return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        return new ResponseEntity<>(user,HttpStatus.OK);
+         if(updatedUser == null)
+           //return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            throw new IllegalArgumentException("User Does not Found With : "+user.getId());
+         return new ResponseEntity<>(user,HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

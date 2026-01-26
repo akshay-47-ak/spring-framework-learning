@@ -20,10 +20,11 @@ public class UserService {
     }
 
     public User updateUser(User user) {
-        if(!userDb.containsKey(user.getId()))
+        if(!userDb.containsKey(user.getId())) {
             //return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             //return ResponseEntity.status(HttpStatus.NOT_FOUND).body();
             return null;
+        }
         userDb.put(user.getId(),user);
         return user;
     }
