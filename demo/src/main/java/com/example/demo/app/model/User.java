@@ -1,4 +1,4 @@
-package com.example.demo.app;
+package com.example.demo.app.model;
 
 public class User {
 

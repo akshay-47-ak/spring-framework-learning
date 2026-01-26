@@ -1,5 +1,7 @@
-package com.example.demo.app;
+package com.example.demo.app.Controller;
 
+import com.example.demo.app.model.User;
+import com.example.demo.app.Service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -72,17 +74,6 @@ public class UserController {
       return ResponseEntity.ok(user);
   }
 
-  @ExceptionHandler(IllegalArgumentException.class)
-  public ResponseEntity<Map<String,Object>> IllegalArgumentException(
-          IllegalArgumentException exception
-  ){
-        Map<String,Object> errorResponse  = new HashMap<>();
 
-        errorResponse.put("timeStamp", LocalDateTime.now());
-        errorResponse.put("status",HttpStatus.BAD_REQUEST);
-        errorResponse.put("error","Bad Request");
-        errorResponse.put("message",exception.getMessage());
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-  }
 
 }

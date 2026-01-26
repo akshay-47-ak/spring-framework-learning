@@ -1,7 +1,6 @@
-package com.example.demo.app;
+package com.example.demo.app.Service;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.example.demo.app.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.Map;
 
 @Service
 public class UserService {
-    Map<Integer,User> userDb = new HashMap<>();
+    Map<Integer, User> userDb = new HashMap<>();
 
 
     public User creteUser(User user) {
