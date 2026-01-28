@@ -1,9 +1,6 @@
 package org.example;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DbConfig {
 
@@ -19,22 +16,63 @@ public class DbConfig {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             System.out.println("✅ Database connected successfully!");
 
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            SelectCust(conn);
 
-            stmt.setInt(1,1);
-            stmt.setString(2,"Akshay");
-            stmt.setString(3,"Athavale");
-            stmt.setString(4,"Akluj");
-            stmt.setString(5,"Akluj");
-            stmt.setString(6,"INDIA");
-
-
-            int rows = stmt.executeUpdate();
-            System.out.println(rows + " student inserted successfully.");
-             conn.close();
         } catch (SQLException e) {
             System.err.println("❌ Database connection failed");
             e.printStackTrace();
         }
     }
+
+    public static void SelectCust(Connection conn){
+        String sql = "Select * from Customers";
+        try(PreparedStatement stmt = conn.prepareStatement(sql);){
+         ResultSet rs  = stmt.executeQuery();
+
+         while (rs.next()){
+             int CustId = rs.getInt("CustomerID");
+             String FirstName = rs.getString("FirstName");
+             String LastName = rs.getString("LastName");
+             String Add  = rs.getString("Address");
+             String City =  rs.getString("City");
+             String Contry = rs.getString("Country");
+
+             System.out.println(
+                     "CustId   : " + CustId + "\n" +
+                             "FirstName: " + FirstName + "\n" +
+                             "LastName : " + LastName + "\n" +
+                             "Address  : " + Add + "\n" +
+                             "City     : " + City + "\n" +
+                             "Country  : " + Contry
+             );
+
+         }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+     public static void InsertCust(Connection conn, int CustId, String FirstName, String LastName, String Add , String City , String Contry)  {
+         String sql = "INSERT INTO Customers (CustomerID,FirstName,LastName,Address,City,Country) VALUES(?,?,?,?,?,?)";
+
+         PreparedStatement stmt = null;
+         try {
+             stmt = conn.prepareStatement(sql);
+             stmt.setInt(1,CustId);
+             stmt.setString(2,FirstName);
+             stmt.setString(3,LastName);
+             stmt.setString(4,Add);
+             stmt.setString(5,City);
+             stmt.setString(6,Contry);
+             int rows = stmt.executeUpdate();
+             System.out.println(rows + " student inserted successfully.");
+             conn.close();
+         } catch (SQLException e) {
+             throw new RuntimeException(e);
+         }
+
+
+     }
+
 }
