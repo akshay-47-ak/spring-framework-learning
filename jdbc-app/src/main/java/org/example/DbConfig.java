@@ -16,7 +16,7 @@ public class DbConfig {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             System.out.println("✅ Database connected successfully!");
 
-            SelectCust(conn);
+           SelectCust(conn);
 
         } catch (SQLException e) {
             System.err.println("❌ Database connection failed");
@@ -74,5 +74,48 @@ public class DbConfig {
 
 
      }
+
+    public static void UpdateCust(Connection conn,
+                                  int CustId,
+                                  String FirstName,
+                                  String LastName,
+                                  String Add,
+                                  String City,
+                                  String Contry) {
+
+        String sql = "UPDATE Customers SET FirstName=?, LastName=?, Address=?, City=?, Country=? WHERE CustomerID=?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, FirstName);
+            stmt.setString(2, LastName);
+            stmt.setString(3, Add);
+            stmt.setString(4, City);
+            stmt.setString(5, Contry);
+            stmt.setInt(6, CustId);
+
+            int rows = stmt.executeUpdate();
+            System.out.println(rows + " customer updated successfully.");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void DeleteCust(Connection conn , int id){
+        String sql ="DELETE FROM Customers WHERE CustomerID = "+id;
+
+        try(PreparedStatement stmt = conn.prepareStatement(sql)){
+
+           int row = stmt.executeUpdate(sql);
+
+            System.out.println("Customer Deleted !"+ row);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
 
 }
