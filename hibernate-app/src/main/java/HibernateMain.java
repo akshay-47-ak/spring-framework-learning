@@ -9,7 +9,11 @@ public class HibernateMain {
        try{
            users us = new users("Adarsh");
            session.beginTransaction();
-           session.persist(us);
+           try{
+               session.persist(us);
+           }catch (Exception e){
+               e.printStackTrace();
+           }
            session.getTransaction().commit();
            System.out.println("User Saved"+ us.getId());
 
