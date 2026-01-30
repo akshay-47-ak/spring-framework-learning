@@ -4,17 +4,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class User {
+public class User1 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
     String name;
 
-    public User() {
+    public User1() {
     }
 
-    public User(String name) {
+    public User1(String name) {
         this.name = name;
     }
 
@@ -26,11 +26,11 @@ public class User {
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 }

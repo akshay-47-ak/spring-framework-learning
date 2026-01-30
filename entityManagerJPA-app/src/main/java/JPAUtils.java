@@ -10,7 +10,7 @@ public class JPAUtils {
        emf = Persistence.createEntityManagerFactory("TestPersistence");
     }
 
-    public EntityManager getEntityManager(){
+    public static EntityManager getEntityManager(){
         return emf.createEntityManager();
     }
 
