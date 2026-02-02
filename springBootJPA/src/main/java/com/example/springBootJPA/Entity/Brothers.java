@@ -1,9 +1,6 @@
 package com.example.springBootJPA.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Brothers {
@@ -15,6 +12,10 @@ public class Brothers {
 
     public Brothers() {
     }
+
+    @OneToOne(mappedBy = "brothers",cascade =CascadeType.ALL)
+    Family family;
+
 
     public Brothers(String name) {
         this.name = name;
