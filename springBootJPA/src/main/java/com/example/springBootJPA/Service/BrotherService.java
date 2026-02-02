@@ -1,5 +1,7 @@
-package com.example.springBootJPA;
+package com.example.springBootJPA.Service;
 
+import com.example.springBootJPA.Entity.Brothers;
+import com.example.springBootJPA.Repository.BRepository;
 import org.springframework.stereotype.Service;
 
 @Service

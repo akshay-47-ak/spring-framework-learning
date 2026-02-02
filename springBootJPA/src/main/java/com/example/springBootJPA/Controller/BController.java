@@ -1,5 +1,7 @@
-package com.example.springBootJPA;
+package com.example.springBootJPA.Controller;
 
+import com.example.springBootJPA.Service.BrotherService;
+import com.example.springBootJPA.Entity.Brothers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
