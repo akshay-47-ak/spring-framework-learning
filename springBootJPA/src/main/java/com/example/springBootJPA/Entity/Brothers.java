@@ -2,6 +2,8 @@ package com.example.springBootJPA.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Brothers {
     @Id
@@ -15,6 +17,9 @@ public class Brothers {
 
     @OneToOne(mappedBy = "brothers",cascade =CascadeType.ALL)
     Family family;
+
+    @OneToMany(mappedBy = "brothers",cascade = CascadeType.ALL)
+    List<Work> works;
 
 
     public Brothers(String name) {
