@@ -14,6 +14,15 @@ public class BrotherService {
    }
 
     public Brothers createUser(Brothers brothers){
+
+        if (brothers.getFamily() != null)
+            brothers.getFamily().setBrothers(brothers);
+
+        if (brothers.getWorks() != null)
+            brothers.getWorks().forEach(work -> {
+                work.setBrothers(brothers);
+            });
+
         return bRepository.save(brothers);
     }
 
