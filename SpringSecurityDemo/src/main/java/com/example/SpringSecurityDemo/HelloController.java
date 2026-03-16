@@ -1,11 +1,13 @@
 package com.example.SpringSecurityDemo;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HelloController {
 
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("/hello")
     public String SayHello(){
         return "Hello";
