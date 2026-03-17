@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password4j.BcryptPassword4jPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -54,6 +56,8 @@ public class SecurityConfig {
 
 
      //   return new InMemoryUserDetailsManager(user1,user2,admin);
+
+        //Database Authorization
         JdbcUserDetailsManager userDetailsManager = new
                 JdbcUserDetailsManager(dataSource);
 
@@ -63,5 +67,7 @@ public class SecurityConfig {
 
         return userDetailsManager;
     }
+
+
 
 }
