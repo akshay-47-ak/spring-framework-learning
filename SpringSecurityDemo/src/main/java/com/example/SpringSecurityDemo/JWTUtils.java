@@ -13,7 +13,7 @@ import java.util.Date;
 @Component
 public class JWTUtils {
 
-    private String jwtSecret="";
+    private String jwtSecret="YS1zdHJpbmctc2VjcmV0LWF0LWxlYXN0LTI1Ni1iaXRzLWxvbmc=";
 
     private int jwtExpiresMs=172800000;
 

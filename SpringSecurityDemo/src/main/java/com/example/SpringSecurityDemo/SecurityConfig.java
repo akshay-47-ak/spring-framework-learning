@@ -3,12 +3,14 @@ package com.example.SpringSecurityDemo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,13 +31,17 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http){
-        http.authorizeHttpRequests(authorizeRequest ->
+        http.csrf(AbstractHttpConfigurer::disable)
+                .formLogin(AbstractHttpConfigurer::disable)
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .anonymous(Customizer.withDefaults())
+                .authorizeHttpRequests(authorizeRequest ->
                  authorizeRequest
                          .requestMatchers("/admin/**").hasRole("ADMIN")
                          .requestMatchers("/user/**").hasRole("USER")
+                         .requestMatchers(HttpMethod.POST, "/signIn").permitAll()
                          .anyRequest().authenticated());
-        http.httpBasic(Customizer.withDefaults());
-
+        //http.httpBasic(Customizer.withDefaults());
         return http.build();
     }
 

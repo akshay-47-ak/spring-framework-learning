@@ -22,7 +22,7 @@ public class HelloController {
     @Autowired
     JWTUtils jwtUtils;
 
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+
     @GetMapping("/hello")
     public String SayHello(){
         return "Hello";
@@ -38,7 +38,7 @@ public class HelloController {
         return "Hello ,USER";
     }
 
-    @PostMapping
+    @PostMapping("/signIn")
     public String login(@RequestBody LoginRequest loginRequest){
         Authentication authentication = null;
         try{
