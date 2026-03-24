@@ -3,7 +3,9 @@ package com.example.SpringSecurityDemo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -64,9 +66,15 @@ public class SecurityConfig {
         JdbcUserDetailsManager userDetailsManager = new
                 JdbcUserDetailsManager(dataSource);
 
-        userDetailsManager.createUser(user1);
-        userDetailsManager.createUser(user2);
-        userDetailsManager.createUser(admin);
+        if(!userDetailsManager.userExists(user1.getUsername())){
+            userDetailsManager.createUser(user1);
+        }
+        if(!userDetailsManager.userExists(user2.getUsername())){
+            userDetailsManager.createUser(user2);
+        }
+        if(!userDetailsManager.userExists(admin.getUsername())){
+            userDetailsManager.createUser(admin);
+        }
 
         return userDetailsManager;
     }
@@ -74,6 +82,11 @@ public class SecurityConfig {
       @Bean
      public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+     }
+
+     @Bean
+     public AuthenticationManager authenticationManager(AuthenticationConfiguration builder){
+        return builder.getAuthenticationManager();
      }
 
 
