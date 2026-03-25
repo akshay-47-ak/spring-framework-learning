@@ -32,14 +32,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http){
         http.csrf(AbstractHttpConfigurer::disable)
-                .formLogin(AbstractHttpConfigurer::disable)
-                .httpBasic(AbstractHttpConfigurer::disable)
                 .anonymous(Customizer.withDefaults())
                 .authorizeHttpRequests(authorizeRequest ->
                  authorizeRequest
                          .requestMatchers("/admin/**").hasRole("ADMIN")
                          .requestMatchers("/user/**").hasRole("USER")
-                         .requestMatchers(HttpMethod.POST, "/signIn").permitAll()
+                         .requestMatchers("/signIn").permitAll()
                          .anyRequest().authenticated());
         //http.httpBasic(Customizer.withDefaults());
         return http.build();
