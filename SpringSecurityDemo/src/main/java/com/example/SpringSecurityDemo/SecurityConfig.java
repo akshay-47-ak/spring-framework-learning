@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.sql.DataSource;
 
@@ -28,6 +29,9 @@ public class SecurityConfig {
 
     @Autowired
     DataSource dataSource;
+
+    @Autowired
+    AuthTokenFilter authTokenFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http){
@@ -40,6 +44,7 @@ public class SecurityConfig {
                          .requestMatchers("/signIn").permitAll()
                          .anyRequest().authenticated());
         //http.httpBasic(Customizer.withDefaults());
+        http.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
