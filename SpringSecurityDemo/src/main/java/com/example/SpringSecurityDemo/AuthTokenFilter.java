@@ -10,17 +10,19 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-
+import java.util.List;
+@Component
 public class AuthTokenFilter extends OncePerRequestFilter {
 
     @Autowired
     private JWTUtils jwtUtils;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+ /*   @Autowired
+    private UserDetailsService userDetailsService;*/
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -30,11 +32,11 @@ public class AuthTokenFilter extends OncePerRequestFilter {
           String jwt = parseJwt(request);
           if(jwt != null && jwtUtils.validateJwtToken(jwt)){
               String username = jwtUtils.getUserFromToken(jwt);
-          UserDetails userDetails= userDetailsService.loadUserByUsername(username);
+        //  UserDetails userDetails= userDetailsService.loadUserByUsername(username);
 
               UsernamePasswordAuthenticationToken authentication =
-                      new UsernamePasswordAuthenticationToken(userDetails,null,
-                      userDetails.getAuthorities());
+                      new UsernamePasswordAuthenticationToken(username,null,
+                              List.of());
               authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
               SecurityContextHolder.getContext().setAuthentication(authentication);
